@@ -1,6 +1,5 @@
 let isTimerStarted = false;
 
-
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
@@ -10,9 +9,11 @@ userInput.addEventListener("input", () => {
         startTimer();
         isTimerStarted = true;
     }
+
     const quote = quoteContainer.querySelectorAll("span");
     const answer = userInput.value.split("");
     let correctAnswer = true;
+
     quote.forEach((letterContainer, index) => {
         const input = answer[index];
         // remove styling for character which was not typed yet
@@ -78,8 +79,6 @@ function startTimer() {
             clearInterval(interval);
         }
     }, 1000);
-
-
 }
 
 
