@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.wpm-container,
+.timer-container,
+.accuracy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
