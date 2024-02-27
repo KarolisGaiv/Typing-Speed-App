@@ -1,5 +1,8 @@
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
+let timer = document.querySelector(".timer");
+
+userInput.addEventListener("focus", startTimer);
 
 userInput.addEventListener("input", () => {
     const quote = quoteContainer.querySelectorAll("span");
@@ -54,9 +57,25 @@ async function showQuote() {
         letterContainer.innerText = letter;
         quoteContainer.appendChild(letterContainer);
     });
-    userInput.value = "";
+    userInput.value = null;
 }
 
+function startTimer() {
+    let timeBank = 60;
+    timer.innerText = timeBank;
+
+    let interval = setInterval(() => {
+        timeBank--;
+        timer.innerText = timeBank;
+
+        // stop timer when it reaches 0
+        if (timeBank <= 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
+
+
+}
 
 
 showQuote();
