@@ -5,8 +5,16 @@ main {
     align-items: center;
 }
 
+body {
+    background: rgb(163, 214, 174);
+    height: 100vh;
+}
+
 section {
+    border: 1px solid black;
+    border-radius: 5px;
     margin: 1rem 0;
+    padding: 1rem 0;
 }
 
 .result-container {
@@ -24,6 +32,14 @@ section {
     flex: 1;
 }
 
+.quote-container {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
 .input-container {
+    border-radius: 1px solid black;
+    border-radius: 5px;
     margin-top: 1rem;
 }
