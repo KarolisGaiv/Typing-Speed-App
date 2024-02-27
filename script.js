@@ -17,8 +17,13 @@ async function getRandomQuote() {
 }
 
 async function showQuote() {
-    const data = await getRandomQuote();
-    quoteContainer.innerText = data;
+    const quoteData = await getRandomQuote();
+    const quoteArray = quoteData.split("");
+    quoteArray.forEach(letter => {
+        const letterContainer = document.createElement("span");
+        letterContainer.innerText = letter;
+        quoteContainer.appendChild(letterContainer);
+    });
 }
 
 showQuote();
