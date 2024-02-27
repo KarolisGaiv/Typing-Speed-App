@@ -1,4 +1,26 @@
 const quoteContainer = document.querySelector(".quote-container");
+const userInput = document.querySelector(".input-container");
+
+userInput.addEventListener("input", () => {
+    const quote = quoteContainer.querySelectorAll("span");
+    const answer = userInput.value.split("");
+    quote.forEach((letterContainer, index) => {
+        const input = answer[index];
+        // remove styling for character which was not typed yet
+        if (input == null) {
+            letterContainer.classList.remove("correct");
+            letterContainer.classList.remove("incorrect");
+        }
+        // color correctly typed letter
+        else if (input === letterContainer.innerText) {
+            letterContainer.classList.add("correct");
+            letterContainer.classList.remove("incorrect");
+        } else {
+            letterContainer.classList.add("incorrect");
+            letterContainer.classList.remove("correct");
+        }
+    });
+});
 
 async function getRandomQuote() {
     try {
@@ -25,5 +47,7 @@ async function showQuote() {
         quoteContainer.appendChild(letterContainer);
     });
 }
+
+
 
 showQuote();
