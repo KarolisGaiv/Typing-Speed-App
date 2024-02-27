@@ -1,10 +1,15 @@
+let isTimerStarted = false;
+
+
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
 
-userInput.addEventListener("focus", startTimer);
-
 userInput.addEventListener("input", () => {
+    if (!isTimerStarted) {
+        startTimer();
+        isTimerStarted = true;
+    }
     const quote = quoteContainer.querySelectorAll("span");
     const answer = userInput.value.split("");
     let correctAnswer = true;
