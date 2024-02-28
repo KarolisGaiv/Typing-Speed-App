@@ -92,9 +92,7 @@ function countAccuracy() {
 
 function countCorrectWords() {
     let phraseWords = quoteContainer.innerText.split(" ");
-    // console.log(phrase);
     let typedWords = userInput.value.split(" ");
-    // console.log(typedWords);
 
     for (let i = 0; i < typedWords.length; i++) {
         if (phraseWords[i] === typedWords[i]) {
