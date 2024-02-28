@@ -76,16 +76,6 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
         startOver();
     }
-
-
-
-
-    // if (e.key === "Enter") {
-    //     if (document.activeElement.type !== "textarea") {
-    //         reset();
-    //     }
-    // }
-
 });
 
 async function showQuote() {
