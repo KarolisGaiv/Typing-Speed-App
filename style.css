@@ -45,10 +45,10 @@ section {
 }
 
 .correct {
-    color: green;
+    background: green;
 }
 
 .incorrect {
-    color: red;
+    background: red;
     text-decoration: underline;
 }
