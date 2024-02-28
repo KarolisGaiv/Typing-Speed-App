@@ -63,6 +63,31 @@ userInput.addEventListener("input", () => {
 resetBtn.addEventListener("click", reset);
 startOverBtn.addEventListener("click", startOver);
 
+// key press events
+document.addEventListener("keydown", (e) => {
+    if (document.activeElement.type === "textarea") {
+        return;
+    }
+
+    if (e.key === "Enter") {
+        reset();
+    }
+
+    if (e.key === "Escape") {
+        startOver();
+    }
+
+
+
+
+    // if (e.key === "Enter") {
+    //     if (document.activeElement.type !== "textarea") {
+    //         reset();
+    //     }
+    // }
+
+});
+
 async function showQuote() {
     quoteContainer.innerHTML = "";
     userInput.value = null;
