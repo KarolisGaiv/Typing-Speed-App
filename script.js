@@ -1,13 +1,17 @@
 import { getRandomQuote } from "/api.js";
 
 let isTimerStarted = false;
-let totalWords = 0;
+let incorrectSymbols = 0;
+let correctWords = 0;
+let totalSymbols = 0;
+let correctnessState = [];
 
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
 
 userInput.addEventListener("input", () => {
+    //prevent restarting already running timer
     if (!isTimerStarted) {
         startTimer();
         isTimerStarted = true;
@@ -16,6 +20,10 @@ userInput.addEventListener("input", () => {
     const quote = quoteContainer.querySelectorAll("span");
     const answer = userInput.value.split("");
     let correctAnswer = true;
+
+    if (correctnessState.length !== quote.length) {
+        correctnessState = new Array(quote.length).fill(null);
+    }
 
     quote.forEach((letterContainer, index) => {
         const input = answer[index];
@@ -33,6 +41,10 @@ userInput.addEventListener("input", () => {
             letterContainer.classList.add("incorrect");
             letterContainer.classList.remove("correct");
             correctAnswer = false;
+            if (correctnessState[index] !== false) {
+                incorrectSymbols++;
+                correctnessState[index] = false;
+            }
         }
     });
 
@@ -42,19 +54,23 @@ userInput.addEventListener("input", () => {
 });
 
 async function showQuote() {
-    const quoteData = await getRandomQuote();
     quoteContainer.innerHTML = "";
+    userInput.value = null;
+
+    const quoteData = await getRandomQuote();
     const quoteArray = quoteData.split("");
+    totalSymbols += quoteArray.length;
+    console.log("total syymbols", totalSymbols);
+
     quoteArray.forEach(letter => {
         const letterContainer = document.createElement("span");
         letterContainer.innerText = letter;
         quoteContainer.appendChild(letterContainer);
     });
-    userInput.value = null;
 }
 
 function startTimer() {
-    let timeBank = 60;
+    let timeBank = 10;
     timer.innerText = timeBank;
 
     let interval = setInterval(() => {
@@ -64,8 +80,15 @@ function startTimer() {
         // stop timer when it reaches 0
         if (timeBank <= 0) {
             clearInterval(interval);
+            console.log(countAccuracy());
         }
     }, 1000);
+}
+
+function countAccuracy() {
+    console.log(totalSymbols);
+    console.log(incorrectSymbols);
+    return Math.round(((totalSymbols - incorrectSymbols) / totalSymbols) * 100);
 }
 
 
