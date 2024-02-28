@@ -1,6 +1,8 @@
 import { getRandomQuote } from "/api.js";
 
-let timeBank = 60;
+const defaultTimerDuration = 60;
+
+let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
 let incorrectSymbols = 0;
 let totalSymbols = 0;
@@ -12,6 +14,7 @@ const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
 const resetBtn = document.querySelector(".reset-btn");
+const startOverBtn = document.querySelector(".start-over-btn");
 
 userInput.addEventListener("input", () => {
     //prevent restarting already running timer
@@ -58,6 +61,7 @@ userInput.addEventListener("input", () => {
 });
 
 resetBtn.addEventListener("click", reset);
+startOverBtn.addEventListener("click", startOver);
 
 async function showQuote() {
     quoteContainer.innerHTML = "";
@@ -75,7 +79,6 @@ async function showQuote() {
 }
 
 function startTimer() {
-    // let timeBank = 60;
     timer.innerText = timeBank;
     clearInterval(interval);
 
@@ -118,16 +121,36 @@ function reset() {
 
     //stop and reset timer
     clearInterval(interval);
-    timer.innerText = "";
+    timeBank = defaultTimerDuration;
+    timer.innerText = defaultTimerDuration;
     isTimerStarted = false;
-    timeBank = 60;
 
+
+    //reset global states
     incorrectSymbols = 0;
     correctWords = 0;
     correctnessState.fill(null);
 
     document.querySelector(".accuracy-counter").innerText = "";
     document.querySelector(".wpm-counter").innerText = "";
+}
+
+function startOver() {
+    clearInterval(interval);
+    timeBank = defaultTimerDuration;
+    timer.innerText = defaultTimerDuration;
+    isTimerStarted = false;
+
+    incorrectSymbols = 0;
+    correctWords = 0;
+    totalSymbols = 0;
+    correctnessState.fill(null);
+
+    document.querySelector(".accuracy-counter").innerText = "";
+    document.querySelector(".wpm-counter").innerText = "";
+    userInput.value = "";
+
+    showQuote();
 }
 
 showQuote();
