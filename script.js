@@ -2,8 +2,8 @@ import { getRandomQuote } from "/api.js";
 
 let isTimerStarted = false;
 let incorrectSymbols = 0;
-let correctWords = 0;
 let totalSymbols = 0;
+let correctWords = 0;
 let correctnessState = [];
 
 const quoteContainer = document.querySelector(".quote-container");
@@ -49,6 +49,7 @@ userInput.addEventListener("input", () => {
     });
 
     if (correctAnswer) {
+        correctWords += quoteContainer.innerText.split(" ").length;
         showQuote();
     }
 });
@@ -60,7 +61,6 @@ async function showQuote() {
     const quoteData = await getRandomQuote();
     const quoteArray = quoteData.split("");
     totalSymbols += quoteArray.length;
-    console.log("total syymbols", totalSymbols);
 
     quoteArray.forEach(letter => {
         const letterContainer = document.createElement("span");
@@ -81,14 +81,27 @@ function startTimer() {
         if (timeBank <= 0) {
             clearInterval(interval);
             document.querySelector(".accuracy-counter").innerText = countAccuracy();
+            document.querySelector(".wpm-counter").innerText = countCorrectWords();
         }
     }, 1000);
 }
 
 function countAccuracy() {
-    console.log(totalSymbols);
-    console.log(incorrectSymbols);
     return Math.round(((totalSymbols - incorrectSymbols) / totalSymbols) * 100);
+}
+
+function countCorrectWords() {
+    let phraseWords = quoteContainer.innerText.split(" ");
+    // console.log(phrase);
+    let typedWords = userInput.value.split(" ");
+    // console.log(typedWords);
+
+    for (let i = 0; i < typedWords.length; i++) {
+        if (phraseWords[i] === typedWords[i]) {
+            correctWords++;
+        }
+    }
+    return correctWords;
 }
 
 showQuote();
