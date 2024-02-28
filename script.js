@@ -1,14 +1,17 @@
 import { getRandomQuote } from "/api.js";
 
+let timeBank = 60;
 let isTimerStarted = false;
 let incorrectSymbols = 0;
 let totalSymbols = 0;
 let correctWords = 0;
 let correctnessState = [];
+let interval;
 
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
+const resetBtn = document.querySelector(".reset-btn");
 
 userInput.addEventListener("input", () => {
     //prevent restarting already running timer
@@ -54,6 +57,8 @@ userInput.addEventListener("input", () => {
     }
 });
 
+resetBtn.addEventListener("click", reset);
+
 async function showQuote() {
     quoteContainer.innerHTML = "";
     userInput.value = null;
@@ -70,10 +75,11 @@ async function showQuote() {
 }
 
 function startTimer() {
-    let timeBank = 10;
+    // let timeBank = 60;
     timer.innerText = timeBank;
+    clearInterval(interval);
 
-    let interval = setInterval(() => {
+    interval = setInterval(() => {
         timeBank--;
         timer.innerText = timeBank;
 
@@ -100,6 +106,28 @@ function countCorrectWords() {
         }
     }
     return correctWords;
+}
+
+function reset() {
+    //reset user input field and also quote display
+    userInput.value = "";
+    const characterContainers = quoteContainer.querySelectorAll("span");
+    characterContainers.forEach(span => {
+        span.classList.remove("correct", "incorrect");
+    });
+
+    //stop and reset timer
+    clearInterval(interval);
+    timer.innerText = "";
+    isTimerStarted = false;
+    timeBank = 60;
+
+    incorrectSymbols = 0;
+    correctWords = 0;
+    correctnessState.fill(null);
+
+    document.querySelector(".accuracy-counter").innerText = "";
+    document.querySelector(".wpm-counter").innerText = "";
 }
 
 showQuote();
