@@ -80,7 +80,7 @@ function startTimer() {
         // stop timer when it reaches 0
         if (timeBank <= 0) {
             clearInterval(interval);
-            console.log(countAccuracy());
+            document.querySelector(".accuracy-counter").innerText = countAccuracy();
         }
     }, 1000);
 }
@@ -90,6 +90,5 @@ function countAccuracy() {
     console.log(incorrectSymbols);
     return Math.round(((totalSymbols - incorrectSymbols) / totalSymbols) * 100);
 }
-
 
 showQuote();
