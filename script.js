@@ -257,7 +257,7 @@ function displayResultsTable() {
         return;
     }
 
-    let table = '<table border="1"><tr><th>Time</th><th>Accuracy (%)</th><th>WPM</th></tr>';
+    let table = '<table class="results-table"><tr class="test"><th class="column">Time</th><th class="column">Accuracy (%)</th><th class="column">WPM</th></tr>';
 
     data.forEach(result => {
         const tableRow = `<tr><td>${result.time}</td><td>${result.accuracy}</td><td>${result.wpm}</td></tr>`;

@@ -134,7 +134,20 @@ button {
 }
 
 .table-wrapper {
+    background-color: var(--secondary-background-color);
+    border-radius: var(--main-boder-radius);
+    padding: 1rem;
+
     &.warning-message {
         font-size: 1.5rem;
     }
+}
+
+.results-table {
+    text-align: center;
+    padding: 1rem;
+}
+
+.column {
+    min-width: 120px;
 }
