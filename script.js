@@ -103,7 +103,7 @@ async function showQuote() {
 }
 
 function startTimer() {
-    toggleResetBtn();
+    resetBtn.disabled = !resetBtn.disabled;
     timer.innerText = timeBank;
     clearInterval(interval);
 
@@ -142,7 +142,7 @@ function countCorrectWords() {
 }
 
 function reset() {
-    toggleResetBtn();
+    resetBtn.disabled = true;
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
@@ -168,6 +168,7 @@ function reset() {
 
 function startOver() {
     clearInterval(interval);
+    resetBtn.disabled = true;
     timeBank = defaultTimerDuration;
     timer.innerText = defaultTimerDuration;
     isTimerStarted = false;
@@ -265,10 +266,6 @@ function displayResultsTable() {
 
     table += "</table>";
     tableWrapper.innerHTML = table;
-}
-
-function toggleResetBtn() {
-    resetBtn.disabled = !resetBtn.disabled;
 }
 
 
