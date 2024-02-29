@@ -70,12 +70,16 @@ resultsTableBtn.addEventListener("click", displayResultsTable);
 
 // key press events
 document.addEventListener("keydown", (e) => {
+    // prevent "enter" and "escape" to work when user is entering text
     if (document.activeElement.type === "textarea") {
         return;
     }
 
     if (e.key === "Enter") {
-        reset();
+        // Only call reset() if userInput has some value
+        if (userInput.value !== "") {
+            reset();
+        }
     }
 
     if (e.key === "Escape") {
