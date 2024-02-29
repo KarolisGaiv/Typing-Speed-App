@@ -1,7 +1,7 @@
 import { getRandomQuote } from "/api.js";
 import localStorageManager from "./localStorageManager.js";
 
-const defaultTimerDuration = 5;
+const defaultTimerDuration = 20;
 
 let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
@@ -62,6 +62,7 @@ userInput.addEventListener("input", () => {
     }
 });
 
+
 resetBtn.addEventListener("click", reset);
 startOverBtn.addEventListener("click", startOver);
 resultsTableBtn.addEventListener("click", displayResultsTable);
@@ -98,6 +99,7 @@ async function showQuote() {
 }
 
 function startTimer() {
+    toggleResetBtn();
     timer.innerText = timeBank;
     clearInterval(interval);
 
@@ -136,9 +138,7 @@ function countCorrectWords() {
 }
 
 function reset() {
-    if (!isTimerStarted) {
-        return;
-    }
+    toggleResetBtn();
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
@@ -239,6 +239,10 @@ function displayResultsTable() {
 
     table += "</table>";
     tableWrapper.innerHTML = table;
+}
+
+function toggleResetBtn() {
+    resetBtn.disabled = !resetBtn.disabled;
 }
 
 showQuote();
