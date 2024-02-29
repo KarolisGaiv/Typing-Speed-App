@@ -146,6 +146,10 @@ button {
 .results-table {
     text-align: center;
     padding: 1rem;
+
+    & td {
+        padding: 0 10px;
+    }
 }
 
 .column {
