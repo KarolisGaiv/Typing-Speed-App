@@ -181,6 +181,22 @@ function startOver() {
     document.querySelector(".wpm-counter").innerText = "";
     userInput.value = "";
 
+    // Remove progress wrapper if it exists
+    const progressWrapper = document.querySelector(".progress-wrapper");
+    if (progressWrapper) {
+        progressWrapper.remove();
+    }
+
+    // Remove table wrapper if it exists
+    const tableWrapper = document.querySelector(".table-wrapper");
+    if (tableWrapper) {
+        tableWrapper.remove();
+    }
+
+    if (resultsTableBtn.disabled === true) {
+        resultsTableBtn.disabled = false;
+    }
+
     showQuote();
 }
 
@@ -228,6 +244,7 @@ function createProgressElement(type, value) {
 }
 
 function displayResultsTable() {
+    toggleResults();
     const tableWrapper = document.createElement("div");
     tableWrapper.classList.add("table-wrapper");
     document.body.appendChild(tableWrapper);
@@ -253,5 +270,10 @@ function displayResultsTable() {
 function toggleResetBtn() {
     resetBtn.disabled = !resetBtn.disabled;
 }
+
+function toggleResults() {
+    resultsTableBtn.disabled = !resultsTableBtn.disabled;
+}
+
 
 showQuote();
