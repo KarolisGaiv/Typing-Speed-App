@@ -136,6 +136,9 @@ function countCorrectWords() {
 }
 
 function reset() {
+    if (!isTimerStarted) {
+        return;
+    }
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
