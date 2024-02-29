@@ -1,3 +1,14 @@
+:root {
+    --primary-background-color: #38CCCC;
+    --secondary-background-color: #99CCCC;
+    --timer-color: #ffffff;
+    --main-boder-radius: 15px;
+    --success-color: #71df71;
+    --warning-color: #ff2d2dc7;
+    --neutral-color: #8080806b;
+}
+
+
 body,
 main {
     display: flex;
@@ -6,19 +17,23 @@ main {
 }
 
 body {
-    background: #B3AC78;
     height: 100vh;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 2rem;
+    margin: 0;
+    font-size: 20px;
 }
 
 section {
-    border: 1px solid black;
-    border-radius: 5px;
+    background-color: var(--primary-background-color);
+    border-radius: var(--main-boder-radius);
     margin: 1rem 0;
-    padding: 1rem 0;
+    padding: 2rem 1.5rem;
 }
 
 .result-container {
     display: flex;
+    font-size: 1.5rem;
     width: 100%;
     justify-content: space-around;
 }
@@ -32,44 +47,49 @@ section {
     flex: 1;
 }
 
+.timer {
+    color: var(--timer-color);
+}
+
 .quote-container {
-    border: 1px solid black;
-    border-radius: 5px;
+    border-radius: var(--main-boder-radius);
     padding: 1rem;
 }
 
 .input-container {
-    border-radius: 5px;
+    background-color: var(--secondary-background-color);
+    border: none;
+    border-radius: var(--main-boder-radius);
     margin-top: 1rem;
+    padding: 1rem;
     width: 100%;
 }
 
 .correct {
-    background: green;
+    background: var(--success-color);
 }
 
 .incorrect {
-    background: red;
+    background: var(--warning-color);
     text-decoration: underline;
 }
 
 .accuracy-progress-wrapper,
 .wpm-progress-wrapper {
-    border: 1px solid black;
-    border-radius: 5px;
+    border-radius: var(--main-boder-radius);
     margin: 1rem 0;
     padding: 1rem;
 
     &.neutral {
-        background: grey;
+        background: var(--neutral-color);
     }
 
     &.increase {
-        background: green;
+        background: var(--success-color);
     }
 
     &.decrease {
-        background: red;
+        background: var(--warning-color);
     }
 }
 
