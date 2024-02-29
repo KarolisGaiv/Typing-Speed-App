@@ -1,6 +1,6 @@
 import { getRandomQuote } from "/api.js";
 
-const defaultTimerDuration = 60;
+const defaultTimerDuration = 5;
 
 let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
@@ -104,8 +104,11 @@ function startTimer() {
         // stop timer when it reaches 0
         if (timeBank <= 0) {
             clearInterval(interval);
-            document.querySelector(".accuracy-counter").innerText = countAccuracy();
-            document.querySelector(".wpm-counter").innerText = countCorrectWords();
+            const accuracy = countAccuracy();
+            const wpm = countCorrectWords();
+            document.querySelector(".accuracy-counter").innerText = accuracy;
+            document.querySelector(".wpm-counter").innerText = wpm;
+            saveTestResult(accuracy, wpm);
         }
     }, 1000);
 }
@@ -168,4 +171,20 @@ function startOver() {
     showQuote();
 }
 
+function saveTestResult(testAccuracy, testWpm) {
+    const time = new Date().toLocaleString();
+    const result = { "accuracy": testAccuracy, "wpm": testWpm };
+    localStorage.setItem(time, JSON.stringify(result));
+}
+
+
+
+function loadUserData() {
+    return;
+    const userData = JSON.parse(localStorage.getItem("testNumber"));
+    console.log(userData);
+}
+
+
 showQuote();
+loadUserData();
