@@ -110,7 +110,8 @@ function startTimer() {
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
             localStorageManager.saveTestResult(accuracy, wpm);
-            calculateProgress(accuracy, wpm, localStorageManager.getLastTestResult());
+            const progress = calculateProgress(accuracy, wpm, localStorageManager.getLastTestResult());
+            displayProgress(progress);
         }
     }, 1000);
 }
@@ -177,20 +178,43 @@ function calculateProgress(currentAccuracy, currentWPM, previousTestResults) {
     const previousAccuracy = previousTestResults.accuracy;
     const previousWPM = previousTestResults.wpm;
 
-    const accuracyProgress = Math.round(((currentAccuracy - previousAccuracy) / previousAccuracy) * 100);
+    const accuracyProgress = calculatePercentageProgress(currentAccuracy, previousAccuracy);
+    const wpmProgress = calculatePercentageProgress(currentWPM, previousWPM);
 
-    const wpmProgress = Math.round(((currentWPM - previousWPM) / previousWPM) * 100);
+    return { accuracyProgress, wpmProgress };
+}
+
+function calculatePercentageProgress(currentValue, previousValue) {
+    return Math.round(((currentValue - previousValue) / previousValue) * 100);
+}
 
 
+function displayProgress(progress) {
+    const progressWrapper = document.createElement("div");
+    progressWrapper.classList.add("progress-wrapper");
+    document.body.appendChild(progressWrapper);
 
-    console.log(`Compared to last game, your accuracy changed by ${accuracyProgress} and WPM changed by ${wpmProgress}`);
+    const header = document.createElement("h2");
+    header.innerText = "Results compared to last test";
+    progressWrapper.appendChild(header);
 
+    const accuracyProgressElement = createProgressElement("accuracy", progress.accuracyProgress);
+    const wpmProgressElement = createProgressElement("wpm", progress.wpmProgress);
 
+    progressWrapper.appendChild(accuracyProgressElement);
+    progressWrapper.appendChild(wpmProgressElement);
+}
 
+function createProgressElement(type, value) {
+    const progressWrapper = document.createElement("div");
+    progressWrapper.classList.add(`${type}-progress-wrapper`);
+    progressWrapper.innerText = `${value}%`;
 
-    console.log(currentAccuracy);
-    console.log(currentWPM);
-    console.log(previousTestResults);
+    //add styling based on progress result
+    const progressClass = value > 0 ? "increase" : value < 0 ? "decrease" : "neutral";
+    progressWrapper.classList.add(progressClass);
+
+    return progressWrapper;
 }
 
 showQuote();

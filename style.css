@@ -52,3 +52,23 @@ section {
     background: red;
     text-decoration: underline;
 }
+
+.accuracy-progress-wrapper,
+.wpm-progress-wrapper {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 1rem 0;
+    padding: 1rem;
+
+    &.neutral {
+        background: grey;
+    }
+
+    &.increase {
+        background: green;
+    }
+
+    &.decrease {
+        background: red;
+    }
+}
