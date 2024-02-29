@@ -11,11 +11,12 @@ function loadUserData() {
         const value = JSON.parse(localStorage.getItem(key));
         data.push({ time: key, ...value });
     }
-    console.log(data);
+    return data;
 }
 
 function getLastTestResult() {
     const lastTestResult = localStorage.key(localStorage.length - 1);
+    console.log(JSON.parse(localStorage.getItem(lastTestResult)));
     return JSON.parse(localStorage.getItem(lastTestResult));
 }
 

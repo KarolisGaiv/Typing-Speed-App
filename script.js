@@ -16,6 +16,7 @@ const userInput = document.querySelector(".input-container");
 let timer = document.querySelector(".timer");
 const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
+const resultsTableBtn = document.querySelector(".result-table-btn");
 
 userInput.addEventListener("input", () => {
     //prevent restarting already running timer
@@ -63,6 +64,8 @@ userInput.addEventListener("input", () => {
 
 resetBtn.addEventListener("click", reset);
 startOverBtn.addEventListener("click", startOver);
+resultsTableBtn.addEventListener("click", displayResultsTable);
+
 
 // key press events
 document.addEventListener("keydown", (e) => {
@@ -215,6 +218,24 @@ function createProgressElement(type, value) {
     progressWrapper.classList.add(progressClass);
 
     return progressWrapper;
+}
+
+function displayResultsTable() {
+    const tableWrapper = document.createElement("div");
+    tableWrapper.classList.add("table-wrapper");
+    document.body.appendChild(tableWrapper);
+
+    const data = localStorageManager.loadUserData();
+    console.log(data);
+    let table = '<table border="1"><tr><th>Time</th><th>Accuracy (%)</th><th>WPM</th></tr>';
+
+    data.forEach(result => {
+        const tableRow = `<tr><td>${result.time}</td><td>${result.accuracy}</td><td>${result.wpm}</td></tr>`;
+        table += tableRow;
+    });
+
+    table += "</table>";
+    tableWrapper.innerHTML = table;
 }
 
 showQuote();
