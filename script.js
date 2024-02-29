@@ -1,4 +1,5 @@
 import { getRandomQuote } from "/api.js";
+import localStorageManager from "./localStorageManager.js";
 
 const defaultTimerDuration = 5;
 
@@ -108,7 +109,7 @@ function startTimer() {
             const wpm = countCorrectWords();
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
-            saveTestResult(accuracy, wpm);
+            localStorageManager.saveTestResult(accuracy, wpm);
         }
     }, 1000);
 }
@@ -171,20 +172,5 @@ function startOver() {
     showQuote();
 }
 
-function saveTestResult(testAccuracy, testWpm) {
-    const time = new Date().toLocaleString();
-    const result = { "accuracy": testAccuracy, "wpm": testWpm };
-    localStorage.setItem(time, JSON.stringify(result));
-}
-
-
-
-function loadUserData() {
-    return;
-    const userData = JSON.parse(localStorage.getItem("testNumber"));
-    console.log(userData);
-}
-
 
 showQuote();
-loadUserData();
