@@ -1,7 +1,7 @@
 import { getRandomQuote } from "/api.js";
 import localStorageManager from "./localStorageManager.js";
 
-const defaultTimerDuration = 20;
+const defaultTimerDuration = 5;
 
 let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
@@ -112,7 +112,7 @@ function startTimer() {
         timer.innerText = timeBank;
 
         // stop timer when it reaches 0
-        if (timeBank <= 0) {
+        if (timeBank === 0) {
             clearInterval(interval);
             const accuracy = countAccuracy();
             const wpm = countCorrectWords();
@@ -233,7 +233,12 @@ function displayResultsTable() {
     document.body.appendChild(tableWrapper);
 
     const data = localStorageManager.loadUserData();
-    console.log(data);
+    if (data.length === 0) {
+        tableWrapper.innerHTML = "No previous test results found";
+        tableWrapper.classList.add("warning-message");
+        return;
+    }
+
     let table = '<table border="1"><tr><th>Time</th><th>Accuracy (%)</th><th>WPM</th></tr>';
 
     data.forEach(result => {

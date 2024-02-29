@@ -72,3 +72,9 @@ section {
         background: red;
     }
 }
+
+.table-wrapper {
+    &.warning-message {
+        font-size: 1.5rem;
+    }
+}
