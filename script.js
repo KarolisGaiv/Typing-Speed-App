@@ -244,7 +244,7 @@ function createProgressElement(type, value) {
 }
 
 function displayResultsTable() {
-    toggleResults();
+    resultsTableBtn.disabled = true;
     const tableWrapper = document.createElement("div");
     tableWrapper.classList.add("table-wrapper");
     document.body.appendChild(tableWrapper);
@@ -271,9 +271,6 @@ function toggleResetBtn() {
     resetBtn.disabled = !resetBtn.disabled;
 }
 
-function toggleResults() {
-    resultsTableBtn.disabled = !resultsTableBtn.disabled;
-}
 
 
 showQuote();
