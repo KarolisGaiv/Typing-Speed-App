@@ -110,6 +110,7 @@ function startTimer() {
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
             localStorageManager.saveTestResult(accuracy, wpm);
+            calculateProgress(accuracy, wpm, localStorageManager.getLastTestResult());
         }
     }, 1000);
 }
@@ -172,5 +173,24 @@ function startOver() {
     showQuote();
 }
 
+function calculateProgress(currentAccuracy, currentWPM, previousTestResults) {
+    const previousAccuracy = previousTestResults.accuracy;
+    const previousWPM = previousTestResults.wpm;
+
+    const accuracyProgress = Math.round(((currentAccuracy - previousAccuracy) / previousAccuracy) * 100);
+
+    const wpmProgress = Math.round(((currentWPM - previousWPM) / previousWPM) * 100);
+
+
+
+    console.log(`Compared to last game, your accuracy changed by ${accuracyProgress} and WPM changed by ${wpmProgress}`);
+
+
+
+
+    console.log(currentAccuracy);
+    console.log(currentWPM);
+    console.log(previousTestResults);
+}
 
 showQuote();

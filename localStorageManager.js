@@ -5,9 +5,18 @@ function saveTestResult(testAccuracy, testWpm) {
 }
 
 function loadUserData() {
-    return;
-    const userData = JSON.parse(localStorage.getItem("testNumber"));
-    console.log(userData);
+    let data = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = JSON.parse(localStorage.getItem(key));
+        data.push({ time: key, ...value });
+    }
+    console.log(data);
 }
 
-export default { saveTestResult, loadUserData };
+function getLastTestResult() {
+    const lastTestResult = localStorage.key(localStorage.length - 1);
+    return JSON.parse(localStorage.getItem(lastTestResult));
+}
+
+export default { saveTestResult, loadUserData, getLastTestResult };
