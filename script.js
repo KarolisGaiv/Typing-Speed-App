@@ -230,16 +230,17 @@ function displayProgress(progress) {
     const accuracyContainer = document.querySelector(".accuracy-progress-container");
     const wpmContainer = document.querySelector(".wpm-progress-container");
 
+    accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
+    wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
+
     //add styling based on progress results
     function assignClass(container, progressValue) {
         container.classList.remove("increase", "decrease", "neutral");
         return progressValue > 0 ? "increase" : progressValue < 0 ? "decrease" : "neutral";
     }
 
-    accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
-    accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
 
-    wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
+    accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
     wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
 }
 
