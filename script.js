@@ -113,6 +113,7 @@ function startTimer() {
 
         // stop timer when it reaches 0
         if (timeBank === 0) {
+            userInput.disabled = true;
             clearInterval(interval);
             const accuracy = countAccuracy();
             const wpm = countCorrectWords();
@@ -122,7 +123,6 @@ function startTimer() {
 
             if (localStorageManager.loadUserData().length > 1) {
                 let test = localStorageManager.loadUserData();
-                console.log(test);
                 const previousTestResults = localStorageManager.getLastTestResult();
                 const progress = calculateProgress(accuracy, wpm, previousTestResults);
                 displayProgress(progress);
@@ -150,6 +150,7 @@ function countCorrectWords() {
 
 function reset() {
     resetBtn.disabled = true;
+    userInput.disabled = false;
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
@@ -176,6 +177,7 @@ function reset() {
 function startOver() {
     clearInterval(interval);
     resetBtn.disabled = true;
+    userInput.disabled = false;
     timeBank = defaultTimerDuration;
     timer.innerText = defaultTimerDuration;
     isTimerStarted = false;
