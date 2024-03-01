@@ -31,10 +31,8 @@ body {
 }
 
 section {
-
     border-radius: var(--main-boder-radius);
-    margin: 1rem 0;
-    padding: 2rem 1.5rem;
+
 }
 
 button {
@@ -63,6 +61,7 @@ button {
     background-color: var(--primary-background-color);
     display: flex;
     font-size: 1.5rem;
+    padding: 2rem 1.5rem;
     width: 70%;
     justify-content: space-around;
 }
@@ -120,14 +119,22 @@ button {
 
     &.active {
         display: flex;
+        flex-direction: column;
     }
+}
+
+.progress-data-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 .accuracy-progress-container,
 .wpm-progress-container {
     border-radius: var(--main-boder-radius);
-    margin: 1rem 0;
+    flex: 1;
+    margin: 1rem;
     padding: 1rem;
+    text-align: center;
 
     &.neutral {
         background: var(--neutral-color);
@@ -142,25 +149,30 @@ button {
     }
 }
 
-.table-wrapper {
-    background-color: var(--secondary-background-color);
-    border-radius: var(--main-boder-radius);
-    padding: 1rem;
+.data-table-container {
+    display: none;
 
-    &.warning-message {
-        font-size: 1.5rem;
+    &.active {
+        display: flex;
     }
 }
 
 .results-table {
-    text-align: center;
-    padding: 1rem;
+    display: none;
 
-    & td {
-        padding: 5px;
+    &.active {
+        background-color: var(--secondary-background-color);
+        border-radius: var(--main-boder-radius);
+        display: block;
+        text-align: center;
+        padding: 1.5rem;
+
+        & th {
+            padding: 1rem;
+        }
+
+        & tr {
+            height: 2.5rem;
+        }
     }
-}
-
-.column {
-    min-width: 120px;
 }

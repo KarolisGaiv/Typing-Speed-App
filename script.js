@@ -243,31 +243,36 @@ function displayProgress(progress) {
 }
 
 function displayResultsTable() {
-    resultsTableBtn.disabled = true;
-    const tableWrapper = document.createElement("div");
-    tableWrapper.classList.add("table-wrapper");
-    document.body.appendChild(tableWrapper);
+    document.querySelector(".results-table").classList.add("active");
+    const tbody = document.querySelector(".results-table tbody");
+    tbody.innerHTML = "";
 
     const data = localStorageManager.loadUserData();
     if (data.length === 0) {
-        tableWrapper.innerHTML = "No previous test results found";
-        tableWrapper.classList.add("warning-message");
-        return;
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.setAttribute("colspan", "3");
+        cell.innerText = "No previous data found";
+        row.appendChild(cell);
+        tbody.appendChild(row);
+    } else {
+        data.forEach(testResult => {
+            console.log(testResult);
+            const row = document.createElement("tr");
+            const timeCell = document.createElement("td");
+            const accuracyCell = document.createElement("td");
+            const wpmCell = document.createElement("td");
+
+            timeCell.innerText = new Date(testResult.time).toLocaleString();
+            accuracyCell.innerText = testResult.accuracy;
+            wpmCell.innerText = testResult.wpm;
+
+            row.appendChild(timeCell);
+            row.appendChild(accuracyCell);
+            row.appendChild(wpmCell);
+            tbody.appendChild(row);
+        });
     }
-
-    let table = '<table class="results-table"><tr class="test"><th class="column">Time</th><th class="column">Accuracy (%)</th><th class="column">WPM</th></tr>';
-
-    data.forEach(result => {
-        const tableRow = `<tr><td>${result.time}</td><td>${result.accuracy}</td><td>${result.wpm}</td></tr>`;
-        table += tableRow;
-    });
-
-    table += "</table>";
-    tableWrapper.innerHTML = table;
 }
-
-
-
-
 
 showQuote();
