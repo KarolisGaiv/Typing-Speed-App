@@ -115,6 +115,14 @@ button {
     text-decoration: underline;
 }
 
+.historical-metrics-container {
+    display: none;
+
+    &.active {
+        display: flex;
+    }
+}
+
 .accuracy-progress-container,
 .wpm-progress-container {
     border-radius: var(--main-boder-radius);

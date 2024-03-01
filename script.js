@@ -17,6 +17,7 @@ const userInput = document.querySelector(".input-container");
 const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
 const resultsTableBtn = document.querySelector(".result-table-btn");
+const progressContainer = document.querySelector(".historical-metrics-container");
 
 userInput.addEventListener("input", () => {
     //prevent restarting already running timer
@@ -172,6 +173,8 @@ function reset() {
 
     document.querySelector(".accuracy-counter").innerText = "";
     document.querySelector(".wpm-counter").innerText = "";
+
+    progressContainer.classList.remove("active");
 }
 
 function startOver() {
@@ -190,12 +193,7 @@ function startOver() {
     document.querySelector(".accuracy-counter").innerText = "";
     document.querySelector(".wpm-counter").innerText = "";
     userInput.value = "";
-
-    // Remove progress wrapper if it exists
-    const progressWrapper = document.querySelector(".progress-wrapper");
-    if (progressWrapper) {
-        progressWrapper.remove();
-    }
+    progressContainer.classList.remove("active");
 
     // Remove table wrapper if it exists
     const tableWrapper = document.querySelector(".table-wrapper");
@@ -227,6 +225,7 @@ function calculatePercentageProgress(currentValue, previousValue) {
 
 
 function displayProgress(progress) {
+    progressContainer.classList.add("active");
     const accuracyContainer = document.querySelector(".accuracy-progress-container");
     const wpmContainer = document.querySelector(".wpm-progress-container");
 
@@ -238,7 +237,6 @@ function displayProgress(progress) {
         container.classList.remove("increase", "decrease", "neutral");
         return progressValue > 0 ? "increase" : progressValue < 0 ? "decrease" : "neutral";
     }
-
 
     accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
     wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
