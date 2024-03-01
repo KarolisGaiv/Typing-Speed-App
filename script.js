@@ -226,13 +226,19 @@ function calculatePercentageProgress(currentValue, previousValue) {
 
 
 function displayProgress(progress) {
-    const progressContainer = document.querySelector(".progress-data-container");
+    // const progressContainer = document.querySelector(".progress-data-container");
+    const accuracyContainer = document.querySelector(".accuracy-progress-container");
+    const wpmContainer = document.querySelector(".wpm-progress-container");
 
-    const accuracyProgressElement = createProgressElement("accuracy", progress.accuracyProgress);
-    const wpmProgressElement = createProgressElement("wpm", progress.wpmProgress);
+    accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
+    wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
 
-    progressContainer.appendChild(accuracyProgressElement);
-    progressContainer.appendChild(wpmProgressElement);
+    // const accuracyProgressElement = createProgressElement("accuracy", progress.accuracyProgress);
+    // console.log(progress.accuracyProgress);
+    // const wpmProgressElement = createProgressElement("wpm", progress.wpmProgress);
+
+    // progressContainer.appendChild(accuracyProgressElement);
+    // progressContainer.appendChild(wpmProgressElement);
 }
 
 function createProgressElement(type, value) {
