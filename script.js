@@ -229,20 +229,17 @@ function displayProgress(progress) {
     const accuracyContainer = document.querySelector(".accuracy-progress-container");
     const wpmContainer = document.querySelector(".wpm-progress-container");
 
+    //add styling based on progress results
+    function assignClass(container, progressValue) {
+        container.classList.remove("increase", "decrease", "neutral");
+        return progressValue > 0 ? "increase" : progressValue < 0 ? "decrease" : "neutral";
+    }
+
     accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
+    accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
+
     wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
-}
-
-function createProgressElement(type, value) {
-    const progressWrapper = document.createElement("div");
-    progressWrapper.classList.add(`${type}-progress-wrapper`);
-    progressWrapper.innerText = `${type} change: ${value}%`;
-
-    //add styling based on progress result
-    const progressClass = value > 0 ? "increase" : value < 0 ? "decrease" : "neutral";
-    progressWrapper.classList.add(progressClass);
-
-    return progressWrapper;
+    wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
 }
 
 function displayResultsTable() {
@@ -268,6 +265,8 @@ function displayResultsTable() {
     table += "</table>";
     tableWrapper.innerHTML = table;
 }
+
+
 
 
 

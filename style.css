@@ -115,8 +115,8 @@ button {
     text-decoration: underline;
 }
 
-.accuracy-progress-wrapper,
-.wpm-progress-wrapper {
+.accuracy-progress-container,
+.wpm-progress-container {
     border-radius: var(--main-boder-radius);
     margin: 1rem 0;
     padding: 1rem;
