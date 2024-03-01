@@ -22,12 +22,19 @@ function loadUserData() {
         const value = JSON.parse(localStorage.getItem(key));
         data.push({ time: key, ...value });
     }
+
+    data.sort((a, b) => {
+        const dateA = new Date(a.time);
+        const dateB = new Date(b.time);
+        return dateA - dateB;
+    });
+
     return data;
 }
 
 function getLastTestResult() {
-    const lastTestResult = localStorage.key(localStorage.length - 2);
-    return JSON.parse(localStorage.getItem(lastTestResult));
+    const data = loadUserData();
+    return data[data.length - 2];
 }
 
 export default { saveTestResult, loadUserData, getLastTestResult };

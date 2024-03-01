@@ -121,6 +121,8 @@ function startTimer() {
             localStorageManager.saveTestResult(accuracy, wpm);
 
             if (localStorageManager.loadUserData().length > 1) {
+                let test = localStorageManager.loadUserData();
+                console.log(test);
                 const previousTestResults = localStorageManager.getLastTestResult();
                 const progress = calculateProgress(accuracy, wpm, previousTestResults);
                 displayProgress(progress);
@@ -134,6 +136,7 @@ function countAccuracy() {
 }
 
 function countCorrectWords() {
+    correctWords = 0;
     let phraseWords = quoteContainer.innerText.split(" ");
     let typedWords = userInput.value.split(" ");
 
