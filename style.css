@@ -150,14 +150,6 @@ button {
     }
 }
 
-.data-table-container {
-    display: none;
-
-    &.active {
-        display: flex;
-    }
-}
-
 .results-table {
     display: none;
 

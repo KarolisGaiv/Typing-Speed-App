@@ -243,7 +243,9 @@ function displayProgress(progress) {
 }
 
 function displayResultsTable() {
-    document.querySelector(".results-table").classList.add("active");
+    const table = document.querySelector(".results-table");
+    table.classList.toggle("active");
+    // document.querySelector(".results-table").classList.add("active");
     const tbody = document.querySelector(".results-table tbody");
     tbody.innerHTML = "";
 
