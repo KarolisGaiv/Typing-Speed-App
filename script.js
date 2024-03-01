@@ -221,6 +221,7 @@ function calculateProgress(currentAccuracy, currentWPM, previousTestResults) {
 }
 
 function calculatePercentageProgress(currentValue, previousValue) {
+    if (previousValue === 0) return 0;
     return Math.round(((currentValue - previousValue) / previousValue) * 100);
 }
 
