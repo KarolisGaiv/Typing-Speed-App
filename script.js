@@ -11,9 +11,9 @@ let correctWords = 0;
 let correctnessState = [];
 let interval;
 
+let timer = document.querySelector(".timer");
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
-let timer = document.querySelector(".timer");
 const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
 const resultsTableBtn = document.querySelector(".result-table-btn");
@@ -226,19 +226,13 @@ function calculatePercentageProgress(currentValue, previousValue) {
 
 
 function displayProgress(progress) {
-    const progressWrapper = document.createElement("div");
-    progressWrapper.classList.add("progress-wrapper");
-    document.body.appendChild(progressWrapper);
-
-    const header = document.createElement("h2");
-    header.innerText = "Results compared to last test";
-    progressWrapper.appendChild(header);
+    const progressContainer = document.querySelector(".progress-data-container");
 
     const accuracyProgressElement = createProgressElement("accuracy", progress.accuracyProgress);
     const wpmProgressElement = createProgressElement("wpm", progress.wpmProgress);
 
-    progressWrapper.appendChild(accuracyProgressElement);
-    progressWrapper.appendChild(wpmProgressElement);
+    progressContainer.appendChild(accuracyProgressElement);
+    progressContainer.appendChild(wpmProgressElement);
 }
 
 function createProgressElement(type, value) {

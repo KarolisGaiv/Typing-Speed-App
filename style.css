@@ -25,13 +25,13 @@ main {
 body {
     height: 100vh;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 2rem 4rem;
+    padding: 0 4rem;
     margin: 0;
     font-size: 20px;
 }
 
 section {
-    background-color: var(--primary-background-color);
+
     border-radius: var(--main-boder-radius);
     margin: 1rem 0;
     padding: 2rem 1.5rem;
@@ -60,6 +60,7 @@ button {
 }
 
 .result-container {
+    background-color: var(--primary-background-color);
     display: flex;
     font-size: 1.5rem;
     width: 70%;
@@ -148,7 +149,7 @@ button {
     padding: 1rem;
 
     & td {
-        padding: 0 10px;
+        padding: 5px;
     }
 }
 
