@@ -26,8 +26,7 @@ function loadUserData() {
 }
 
 function getLastTestResult() {
-    const lastTestResult = localStorage.key(localStorage.length - 1);
-    console.log(JSON.parse(localStorage.getItem(lastTestResult)));
+    const lastTestResult = localStorage.key(localStorage.length - 2);
     return JSON.parse(localStorage.getItem(lastTestResult));
 }
 

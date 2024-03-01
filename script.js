@@ -119,8 +119,12 @@ function startTimer() {
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
             localStorageManager.saveTestResult(accuracy, wpm);
-            const progress = calculateProgress(accuracy, wpm, localStorageManager.getLastTestResult());
-            displayProgress(progress);
+
+            if (localStorageManager.loadUserData().length > 1) {
+                const previousTestResults = localStorageManager.getLastTestResult();
+                const progress = calculateProgress(accuracy, wpm, previousTestResults);
+                displayProgress(progress);
+            }
         }
     }, 1000);
 }
@@ -235,7 +239,7 @@ function displayProgress(progress) {
 function createProgressElement(type, value) {
     const progressWrapper = document.createElement("div");
     progressWrapper.classList.add(`${type}-progress-wrapper`);
-    progressWrapper.innerText = `${value}%`;
+    progressWrapper.innerText = `${type} change: ${value}%`;
 
     //add styling based on progress result
     const progressClass = value > 0 ? "increase" : value < 0 ? "decrease" : "neutral";
