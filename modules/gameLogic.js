@@ -2,7 +2,7 @@ import uiManager from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
-const DEFAULTDURATION = 5;
+const DEFAULTDURATION = 60;
 
 let timeBank = DEFAULTDURATION;
 let isTimerStarted = false;

@@ -24,4 +24,3 @@ To get started with the Typing Speed Test app, follow these steps:
 2. **Navigate to the Project Folder**
 3. **Open the Project**
 4. **Launch the App:** _You can launch the app using a local server setup._
-
