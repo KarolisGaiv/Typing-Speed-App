@@ -1,8 +1,8 @@
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 
-
-export function countAccuracy(totalSymbols, incorrectSymbols) {
+export function countAccuracy(incorrectSymbols) {
+    const totalSymbols = quoteContainer.innerText.length;
     return Math.round(((totalSymbols - incorrectSymbols) / totalSymbols) * 100);
 }
 

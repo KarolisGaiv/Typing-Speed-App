@@ -1,4 +1,5 @@
-import { getRandomQuote } from "/api.js";
+// import { getRandomQuote } from "/api.js";
+import { showQuote } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -7,7 +8,6 @@ const defaultTimerDuration = 5;
 let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
 let incorrectSymbols = 0;
-let totalSymbols = 0;
 let correctWordsCounter = 0;
 let correctnessState = [];
 let interval;
@@ -89,21 +89,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-async function showQuote() {
-    quoteContainer.innerHTML = "";
-    userInput.value = null;
-
-    const quoteData = await getRandomQuote();
-    const quoteArray = quoteData.split("");
-    totalSymbols += quoteArray.length;
-
-    quoteArray.forEach(letter => {
-        const letterContainer = document.createElement("span");
-        letterContainer.innerText = letter;
-        quoteContainer.appendChild(letterContainer);
-    });
-}
-
 function startTimer() {
     resetBtn.disabled = !resetBtn.disabled;
     timer.innerText = timeBank;
@@ -117,7 +102,7 @@ function startTimer() {
         if (timeBank === 0) {
             userInput.disabled = true;
             clearInterval(interval);
-            const accuracy = countAccuracy(totalSymbols, incorrectSymbols);
+            const accuracy = countAccuracy(incorrectSymbols);
             const wpm = countCorrectWords(correctWordsCounter);
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
@@ -172,7 +157,6 @@ function startOver() {
 
     incorrectSymbols = 0;
     correctWordsCounter = 0;
-    totalSymbols = 0;
     correctnessState.fill(null);
 
     document.querySelector(".accuracy-counter").innerText = "";
