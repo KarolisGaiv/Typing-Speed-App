@@ -1,5 +1,4 @@
-// import { getRandomQuote } from "/api.js";
-import { showQuote } from "./ui.js";
+import { showQuote, updateTimer } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -12,7 +11,6 @@ let correctWordsCounter = 0;
 let correctnessState = [];
 let interval;
 
-let timer = document.querySelector(".timer");
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");
 const resetBtn = document.querySelector(".reset-btn");
@@ -91,12 +89,12 @@ document.addEventListener("keydown", (e) => {
 
 function startTimer() {
     resetBtn.disabled = !resetBtn.disabled;
-    timer.innerText = timeBank;
+    updateTimer(timeBank);
     clearInterval(interval);
 
     interval = setInterval(() => {
         timeBank--;
-        timer.innerText = timeBank;
+        updateTimer(timeBank);
 
         // stop timer when it reaches 0
         if (timeBank === 0) {
@@ -132,7 +130,7 @@ function reset() {
     //stop and reset timer
     clearInterval(interval);
     timeBank = defaultTimerDuration;
-    timer.innerText = defaultTimerDuration;
+    updateTimer(defaultTimerDuration);
     isTimerStarted = false;
 
 
@@ -152,7 +150,7 @@ function startOver() {
     resetBtn.disabled = true;
     userInput.disabled = false;
     timeBank = defaultTimerDuration;
-    timer.innerText = defaultTimerDuration;
+    updateTimer(defaultTimerDuration);
     isTimerStarted = false;
 
     incorrectSymbols = 0;

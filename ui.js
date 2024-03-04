@@ -1,6 +1,7 @@
 import { getRandomQuote } from "./api.js";
 
 const quoteContainer = document.querySelector(".quote-container");
+let timer = document.querySelector(".timer");
 
 export async function showQuote() {
     quoteContainer.innerHTML = "";
@@ -13,4 +14,8 @@ export async function showQuote() {
         letterContainer.innerText = letter;
         quoteContainer.appendChild(letterContainer);
     });
+}
+
+export function updateTimer(timeBank) {
+    timer.innerText = timeBank;
 }
