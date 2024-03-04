@@ -17,3 +17,18 @@ export function countCorrectWords(correctWordsCounter) {
     }
     return correctWordsCounter;
 }
+
+export function calculateProgress(currentAccuracy, currentWPM, previousTestResults) {
+    const previousAccuracy = previousTestResults.accuracy;
+    const previousWPM = previousTestResults.wpm;
+
+    const accuracyProgress = calculatePercentageProgress(currentAccuracy, previousAccuracy);
+    const wpmProgress = calculatePercentageProgress(currentWPM, previousWPM);
+
+    return { accuracyProgress, wpmProgress };
+}
+
+function calculatePercentageProgress(currentValue, previousValue) {
+    if (previousValue === 0) return 0;
+    return Math.round(((currentValue - previousValue) / previousValue) * 100);
+}

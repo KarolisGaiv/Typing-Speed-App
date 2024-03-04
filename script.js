@@ -1,5 +1,5 @@
 import { getRandomQuote } from "/api.js";
-import { countAccuracy, countCorrectWords } from "./utils.js";
+import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
 const defaultTimerDuration = 5;
@@ -124,7 +124,6 @@ function startTimer() {
             localStorageManager.saveTestResult(accuracy, wpm);
 
             if (localStorageManager.loadUserData().length > 1) {
-                let test = localStorageManager.loadUserData();
                 const previousTestResults = localStorageManager.getLastTestResult();
                 const progress = calculateProgress(accuracy, wpm, previousTestResults);
                 displayProgress(progress);
@@ -193,22 +192,6 @@ function startOver() {
 
     showQuote();
 }
-
-function calculateProgress(currentAccuracy, currentWPM, previousTestResults) {
-    const previousAccuracy = previousTestResults.accuracy;
-    const previousWPM = previousTestResults.wpm;
-
-    const accuracyProgress = calculatePercentageProgress(currentAccuracy, previousAccuracy);
-    const wpmProgress = calculatePercentageProgress(currentWPM, previousWPM);
-
-    return { accuracyProgress, wpmProgress };
-}
-
-function calculatePercentageProgress(currentValue, previousValue) {
-    if (previousValue === 0) return 0;
-    return Math.round(((currentValue - previousValue) / previousValue) * 100);
-}
-
 
 function displayProgress(progress) {
     progressContainer.classList.add("active");
