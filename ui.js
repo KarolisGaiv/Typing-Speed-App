@@ -71,7 +71,7 @@ export function displayResultsTable() {
     }
 }
 
-export function resetElementText(element) {
+export function resetElement(element) {
     element.innerText = "";
 }
 
@@ -89,4 +89,8 @@ export function disableElement(element) {
 
 export function enableElement(element) {
     element.disabled = false;
+}
+
+export function removeClass(element, className) {
+    element.classList.remove(className);
 }

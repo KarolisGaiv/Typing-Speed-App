@@ -1,4 +1,4 @@
-import { showQuote, displayProgress, resetElementText, updateTimer, toggleButtonStatus, disableElement, enableElement, displayResultsTable } from "./ui.js";
+import { showQuote, displayProgress, resetElement, updateTimer, toggleButtonStatus, disableElement, enableElement, displayResultsTable, removeClass } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -17,6 +17,7 @@ const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
 const resultsTableBtn = document.querySelector(".result-table-btn");
 const accuracyCounter = document.querySelector(".accuracy-counter");
+const progressContainer = document.querySelector(".historical-metrics-container");
 const wpmCounter = document.querySelector(".wpm-counter");
 
 userInput.addEventListener("input", () => {
@@ -124,6 +125,7 @@ function reset() {
 
     //reset user input field and also quote display
     userInput.value = "";
+
     const characterContainers = quoteContainer.querySelectorAll("span");
     characterContainers.forEach(span => {
         span.classList.remove("correct", "incorrect");
@@ -135,16 +137,15 @@ function reset() {
     updateTimer(defaultTimerDuration);
     isTimerStarted = false;
 
-
     //reset global states
     incorrectSymbols = 0;
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    resetElementText(accuracyCounter);
-    resetElementText(wpmCounter);
+    resetElement(accuracyCounter);
+    resetElement(wpmCounter);
 
-    progressContainer.classList.remove("active");
+    removeClass(progressContainer, "active");
 }
 
 function startOver() {
@@ -159,10 +160,10 @@ function startOver() {
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    resetElementText(accuracyCounter);
-    resetElementText(wpmCounter);
+    resetElement(accuracyCounter);
+    resetElement(wpmCounter);
     userInput.value = "";
-    progressContainer.classList.remove("active");
+    removeClass(progressContainer, "active");
 
     // Remove table wrapper if it exists
     const tableWrapper = document.querySelector(".table-wrapper");
