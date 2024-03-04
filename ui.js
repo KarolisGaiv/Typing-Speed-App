@@ -1,6 +1,7 @@
 import { getRandomQuote } from "./api.js";
 
 const quoteContainer = document.querySelector(".quote-container");
+const progressContainer = document.querySelector(".historical-metrics-container");
 let timer = document.querySelector(".timer");
 
 export async function showQuote() {
@@ -15,6 +16,31 @@ export async function showQuote() {
         quoteContainer.appendChild(letterContainer);
     });
 }
+
+export function displayProgress(progress) {
+    progressContainer.classList.add("active");
+    const accuracyContainer = document.querySelector(".accuracy-progress-container");
+    const wpmContainer = document.querySelector(".wpm-progress-container");
+
+    accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
+    wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
+
+    //add styling based on progress results
+    function assignClass(container, progressValue) {
+        container.classList.remove("increase", "decrease", "neutral");
+        return progressValue > 0 ? "increase" : progressValue < 0 ? "decrease" : "neutral";
+    }
+
+    accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
+    wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
+}
+
+
+
+
+
+
+
 
 export function resetElementText(element) {
     element.innerText = "";

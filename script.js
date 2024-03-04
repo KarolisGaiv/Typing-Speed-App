@@ -1,4 +1,4 @@
-import { showQuote, resetElementText, updateTimer, toggleButtonStatus, disableElement, enableElement } from "./ui.js";
+import { showQuote, displayProgress, resetElementText, updateTimer, toggleButtonStatus, disableElement, enableElement } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -16,7 +16,6 @@ const userInput = document.querySelector(".input-container");
 const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
 const resultsTableBtn = document.querySelector(".result-table-btn");
-const progressContainer = document.querySelector(".historical-metrics-container");
 const accuracyCounter = document.querySelector(".accuracy-counter");
 const wpmCounter = document.querySelector(".wpm-counter");
 
@@ -104,8 +103,8 @@ function startTimer() {
             clearInterval(interval);
             const accuracy = countAccuracy(incorrectSymbols);
             const wpm = countCorrectWords(correctWordsCounter);
-            document.querySelector(".accuracy-counter").innerText = accuracy;
-            document.querySelector(".wpm-counter").innerText = wpm;
+            accuracyCounter.innerText = accuracy;
+            wpmCounter.innerText = wpm;
             localStorageManager.saveTestResult(accuracy, wpm);
 
             if (localStorageManager.loadUserData().length > 1) {
@@ -176,24 +175,6 @@ function startOver() {
     }
 
     showQuote();
-}
-
-function displayProgress(progress) {
-    progressContainer.classList.add("active");
-    const accuracyContainer = document.querySelector(".accuracy-progress-container");
-    const wpmContainer = document.querySelector(".wpm-progress-container");
-
-    accuracyContainer.innerText = `Accuracy: ${progress.accuracyProgress}%`;
-    wpmContainer.innerText = `WPM: ${progress.wpmProgress}%`;
-
-    //add styling based on progress results
-    function assignClass(container, progressValue) {
-        container.classList.remove("increase", "decrease", "neutral");
-        return progressValue > 0 ? "increase" : progressValue < 0 ? "decrease" : "neutral";
-    }
-
-    accuracyContainer.classList.add(assignClass(accuracyContainer, progress.accuracyProgress));
-    wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
 }
 
 function displayResultsTable() {
