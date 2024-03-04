@@ -1,4 +1,5 @@
 import { getRandomQuote } from "./api.js";
+import localStorageManager from "./localStorageManager.js";
 
 const quoteContainer = document.querySelector(".quote-container");
 const progressContainer = document.querySelector(".historical-metrics-container");
@@ -35,12 +36,40 @@ export function displayProgress(progress) {
     wpmContainer.classList.add(assignClass(wpmContainer, progress.wpmProgress));
 }
 
+export function displayResultsTable() {
+    const table = document.querySelector(".results-table");
+    table.classList.toggle("active");
+    const tbody = document.querySelector(".results-table tbody");
+    tbody.innerHTML = "";
 
+    const data = localStorageManager.loadUserData();
 
+    if (data.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.setAttribute("colspan", "3");
+        cell.innerText = "No previous data found";
+        row.appendChild(cell);
+        tbody.appendChild(row);
+    } else {
+        data.forEach(testResult => {
+            console.log(testResult);
+            const row = document.createElement("tr");
+            const timeCell = document.createElement("td");
+            const accuracyCell = document.createElement("td");
+            const wpmCell = document.createElement("td");
 
+            timeCell.innerText = new Date(testResult.time).toLocaleString();
+            accuracyCell.innerText = testResult.accuracy;
+            wpmCell.innerText = testResult.wpm;
 
-
-
+            row.appendChild(timeCell);
+            row.appendChild(accuracyCell);
+            row.appendChild(wpmCell);
+            tbody.appendChild(row);
+        });
+    }
+}
 
 export function resetElementText(element) {
     element.innerText = "";
