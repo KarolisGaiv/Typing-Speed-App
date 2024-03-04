@@ -28,6 +28,7 @@ export function calculateProgress(currentAccuracy, currentWPM, previousTestResul
     return { accuracyProgress, wpmProgress };
 }
 
+
 function calculatePercentageProgress(currentValue, previousValue) {
     if (previousValue === 0) return 0;
     return Math.round(((currentValue - previousValue) / previousValue) * 100);

@@ -2,7 +2,11 @@ import { getRandomQuote } from "./api.js";
 import localStorageManager from "./localStorageManager.js";
 
 const quoteContainer = document.querySelector(".quote-container");
+const userInput = document.querySelector(".input-container");
 const progressContainer = document.querySelector(".historical-metrics-container");
+const accuracyCounter = document.querySelector(".accuracy-counter");
+const wpmCounter = document.querySelector(".wpm-counter");
+const resetBtn = document.querySelector(".reset-btn");
 let timer = document.querySelector(".timer");
 
 async function showQuote() {
@@ -70,6 +74,19 @@ function displayResultsTable() {
     }
 }
 
+function resetUI() {
+    const characterContainers = quoteContainer.querySelectorAll("span");
+    enableElement(userInput);
+    characterContainers.forEach(span => {
+        span.classList.remove("correct", "incorrect");
+    });
+
+    resetElement(accuracyCounter);
+    resetElement(wpmCounter);
+    removeClass(progressContainer, "active");
+    toggleButtonStatus(resetBtn);
+}
+
 function resetElement(element) {
     element.innerText = "";
 }
@@ -94,4 +111,9 @@ function removeClass(element, className) {
     element.classList.remove(className);
 }
 
-export default { showQuote, displayProgress, resetElement, updateTimer, toggleButtonStatus, disableElement, enableElement, displayResultsTable, removeClass };
+function updateResults(accuracy, wpm) {
+    accuracyCounter.innerText = accuracy;
+    wpmCounter.innerText = wpm;
+}
+
+export default { showQuote, displayProgress, resetElement, updateTimer, toggleButtonStatus, disableElement, enableElement, displayResultsTable, removeClass, updateResults, resetUI };
