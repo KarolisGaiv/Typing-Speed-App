@@ -1,4 +1,4 @@
-import { showQuote, displayProgress, resetElement, updateTimer, toggleButtonStatus, disableElement, enableElement, displayResultsTable, removeClass } from "./ui.js";
+import uiManager from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -60,14 +60,14 @@ userInput.addEventListener("input", () => {
 
     if (correctAnswer) {
         correctWordsCounter += quoteContainer.innerText.split(" ").length;
-        showQuote();
+        uiManager.showQuote();
     }
 });
 
 
 resetBtn.addEventListener("click", reset);
 startOverBtn.addEventListener("click", startOver);
-resultsTableBtn.addEventListener("click", displayResultsTable);
+resultsTableBtn.addEventListener("click", uiManager.displayResultsTable);
 
 
 // key press events
@@ -90,17 +90,17 @@ document.addEventListener("keydown", (e) => {
 });
 
 function startTimer() {
-    toggleButtonStatus(resetBtn);
-    updateTimer(timeBank);
+    uiManager.toggleButtonStatus(resetBtn);
+    uiManager.updateTimer(timeBank);
     clearInterval(interval);
 
     interval = setInterval(() => {
         timeBank--;
-        updateTimer(timeBank);
+        uiManager.updateTimer(timeBank);
 
         // stop timer when it reaches 0
         if (timeBank === 0) {
-            disableElement(userInput);
+            uiManager.disableElement(userInput);
             clearInterval(interval);
             const accuracy = countAccuracy(incorrectSymbols);
             const wpm = countCorrectWords(correctWordsCounter);
@@ -111,7 +111,7 @@ function startTimer() {
             if (localStorageManager.loadUserData().length > 1) {
                 const previousTestResults = localStorageManager.getLastTestResult();
                 const progress = calculateProgress(accuracy, wpm, previousTestResults);
-                displayProgress(progress);
+                uiManager.displayProgress(progress);
             }
         }
     }, 1000);
@@ -120,8 +120,8 @@ function startTimer() {
 
 
 function reset() {
-    disableElement(resetBtn);
-    enableElement(userInput);
+    uiManager.disableElement(resetBtn);
+    uiManager.enableElement(userInput);
 
     //reset user input field and also quote display
     userInput.value = "";
@@ -134,7 +134,7 @@ function reset() {
     //stop and reset timer
     clearInterval(interval);
     timeBank = defaultTimerDuration;
-    updateTimer(defaultTimerDuration);
+    uiManager.updateTimer(defaultTimerDuration);
     isTimerStarted = false;
 
     //reset global states
@@ -142,28 +142,28 @@ function reset() {
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    resetElement(accuracyCounter);
-    resetElement(wpmCounter);
+    uiManager.resetElement(accuracyCounter);
+    uiManager.resetElement(wpmCounter);
 
-    removeClass(progressContainer, "active");
+    uiManager.removeClass(progressContainer, "active");
 }
 
 function startOver() {
     clearInterval(interval);
-    disableElement(resetBtn);
-    enableElement(userInput);
+    uiManager.disableElement(resetBtn);
+    uiManager.enableElement(userInput);
     timeBank = defaultTimerDuration;
-    updateTimer(defaultTimerDuration);
+    uiManager.updateTimer(defaultTimerDuration);
     isTimerStarted = false;
 
     incorrectSymbols = 0;
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    resetElement(accuracyCounter);
-    resetElement(wpmCounter);
+    uiManager.resetElement(accuracyCounter);
+    uiManager.resetElement(wpmCounter);
     userInput.value = "";
-    removeClass(progressContainer, "active");
+    uiManager.removeClass(progressContainer, "active");
 
     // Remove table wrapper if it exists
     const tableWrapper = document.querySelector(".table-wrapper");
@@ -172,10 +172,11 @@ function startOver() {
     }
 
     if (resultsTableBtn.disabled === true) {
-        enableElement(resultsTableBtn);
+        uiManager.enableElement(resultsTableBtn);
     }
 
-    showQuote();
+    uiManager.showQuote();
 }
 
-showQuote();
+uiManager.showQuote();
+// showQuote();
