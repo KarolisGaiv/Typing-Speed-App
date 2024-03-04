@@ -1,4 +1,5 @@
 import { getRandomQuote } from "/api.js";
+import { countAccuracy, countCorrectWords } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
 const defaultTimerDuration = 5;
@@ -7,7 +8,7 @@ let timeBank = defaultTimerDuration;
 let isTimerStarted = false;
 let incorrectSymbols = 0;
 let totalSymbols = 0;
-let correctWords = 0;
+let correctWordsCounter = 0;
 let correctnessState = [];
 let interval;
 
@@ -58,7 +59,7 @@ userInput.addEventListener("input", () => {
     });
 
     if (correctAnswer) {
-        correctWords += quoteContainer.innerText.split(" ").length;
+        correctWordsCounter += quoteContainer.innerText.split(" ").length;
         showQuote();
     }
 });
@@ -116,8 +117,8 @@ function startTimer() {
         if (timeBank === 0) {
             userInput.disabled = true;
             clearInterval(interval);
-            const accuracy = countAccuracy();
-            const wpm = countCorrectWords();
+            const accuracy = countAccuracy(totalSymbols, incorrectSymbols);
+            const wpm = countCorrectWords(correctWordsCounter);
             document.querySelector(".accuracy-counter").innerText = accuracy;
             document.querySelector(".wpm-counter").innerText = wpm;
             localStorageManager.saveTestResult(accuracy, wpm);
@@ -132,22 +133,7 @@ function startTimer() {
     }, 1000);
 }
 
-function countAccuracy() {
-    return Math.round(((totalSymbols - incorrectSymbols) / totalSymbols) * 100);
-}
 
-function countCorrectWords() {
-    correctWords = 0;
-    let phraseWords = quoteContainer.innerText.split(" ");
-    let typedWords = userInput.value.split(" ");
-
-    for (let i = 0; i < typedWords.length; i++) {
-        if (phraseWords[i] === typedWords[i]) {
-            correctWords++;
-        }
-    }
-    return correctWords;
-}
 
 function reset() {
     resetBtn.disabled = true;
@@ -168,7 +154,7 @@ function reset() {
 
     //reset global states
     incorrectSymbols = 0;
-    correctWords = 0;
+    correctWordsCounter = 0;
     correctnessState.fill(null);
 
     document.querySelector(".accuracy-counter").innerText = "";
@@ -186,7 +172,7 @@ function startOver() {
     isTimerStarted = false;
 
     incorrectSymbols = 0;
-    correctWords = 0;
+    correctWordsCounter = 0;
     totalSymbols = 0;
     correctnessState.fill(null);
 
