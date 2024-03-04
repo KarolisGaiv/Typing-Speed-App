@@ -1,5 +1,5 @@
-import uiManager from "./ui.js";
-import { inputHandler, resetGame, startOverGame } from "./gameLogic.js";
+import uiManager from "./modules/ui.js";
+import { inputHandler, resetGame, startOverGame } from "./modules/gameLogic.js";
 
 const quoteContainer = document.querySelector(".quote-container");
 const userInput = document.querySelector(".input-container");

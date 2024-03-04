@@ -1,4 +1,4 @@
-import { getRandomQuote } from "./api.js";
+import { getRandomQuote } from "../api/api.js";
 import localStorageManager from "./localStorageManager.js";
 
 const quoteContainer = document.querySelector(".quote-container");

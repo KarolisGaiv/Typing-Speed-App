@@ -52,7 +52,6 @@ export function inputHandler(userInputValue, quote) {
         correctWordsCounter += quote.split(" ").length;
         correctnessState.fill(null);
     }
-
 }
 
 
