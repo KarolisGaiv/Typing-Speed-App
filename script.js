@@ -1,4 +1,4 @@
-import { showQuote, updateTimer, toggleButtonStatus, disableElement } from "./ui.js";
+import { showQuote, updateTimer, toggleButtonStatus, disableElement, enableElement } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -119,7 +119,7 @@ function startTimer() {
 
 function reset() {
     disableElement(resetBtn);
-    userInput.disabled = false;
+    enableElement(userInput);
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
@@ -148,7 +148,7 @@ function reset() {
 function startOver() {
     clearInterval(interval);
     disableElement(resetBtn);
-    userInput.disabled = false;
+    enableElement(userInput);
     timeBank = defaultTimerDuration;
     updateTimer(defaultTimerDuration);
     isTimerStarted = false;
@@ -169,7 +169,7 @@ function startOver() {
     }
 
     if (resultsTableBtn.disabled === true) {
-        resultsTableBtn.disabled = false;
+        enableElement(resultsTableBtn);
     }
 
     showQuote();

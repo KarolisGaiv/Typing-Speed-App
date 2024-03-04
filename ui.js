@@ -27,3 +27,7 @@ export function toggleButtonStatus(button) {
 export function disableElement(element) {
     element.disabled = true;
 }
+
+export function enableElement(element) {
+    element.disabled = false;
+}
