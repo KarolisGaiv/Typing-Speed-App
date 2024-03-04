@@ -16,6 +16,10 @@ export async function showQuote() {
     });
 }
 
+export function resetElementText(element) {
+    element.innerText = "";
+}
+
 export function updateTimer(timeBank) {
     timer.innerText = timeBank;
 }

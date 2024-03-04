@@ -1,4 +1,4 @@
-import { showQuote, updateTimer, toggleButtonStatus, disableElement, enableElement } from "./ui.js";
+import { showQuote, resetElementText, updateTimer, toggleButtonStatus, disableElement, enableElement } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -17,6 +17,8 @@ const resetBtn = document.querySelector(".reset-btn");
 const startOverBtn = document.querySelector(".start-over-btn");
 const resultsTableBtn = document.querySelector(".result-table-btn");
 const progressContainer = document.querySelector(".historical-metrics-container");
+const accuracyCounter = document.querySelector(".accuracy-counter");
+const wpmCounter = document.querySelector(".wpm-counter");
 
 userInput.addEventListener("input", () => {
     //prevent restarting already running timer
@@ -120,6 +122,7 @@ function startTimer() {
 function reset() {
     disableElement(resetBtn);
     enableElement(userInput);
+
     //reset user input field and also quote display
     userInput.value = "";
     const characterContainers = quoteContainer.querySelectorAll("span");
@@ -139,8 +142,8 @@ function reset() {
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    document.querySelector(".accuracy-counter").innerText = "";
-    document.querySelector(".wpm-counter").innerText = "";
+    resetElementText(accuracyCounter);
+    resetElementText(wpmCounter);
 
     progressContainer.classList.remove("active");
 }
@@ -157,8 +160,8 @@ function startOver() {
     correctWordsCounter = 0;
     correctnessState.fill(null);
 
-    document.querySelector(".accuracy-counter").innerText = "";
-    document.querySelector(".wpm-counter").innerText = "";
+    resetElementText(accuracyCounter);
+    resetElementText(wpmCounter);
     userInput.value = "";
     progressContainer.classList.remove("active");
 
