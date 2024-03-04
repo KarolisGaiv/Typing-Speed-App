@@ -1,4 +1,4 @@
-import { showQuote, updateTimer } from "./ui.js";
+import { showQuote, updateTimer, toggleButtonStatus, disableElement } from "./ui.js";
 import { countAccuracy, countCorrectWords, calculateProgress } from "./utils.js";
 import localStorageManager from "./localStorageManager.js";
 
@@ -88,7 +88,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 function startTimer() {
-    resetBtn.disabled = !resetBtn.disabled;
+    toggleButtonStatus(resetBtn);
     updateTimer(timeBank);
     clearInterval(interval);
 
@@ -98,7 +98,7 @@ function startTimer() {
 
         // stop timer when it reaches 0
         if (timeBank === 0) {
-            userInput.disabled = true;
+            disableElement(userInput);
             clearInterval(interval);
             const accuracy = countAccuracy(incorrectSymbols);
             const wpm = countCorrectWords(correctWordsCounter);
@@ -118,7 +118,7 @@ function startTimer() {
 
 
 function reset() {
-    resetBtn.disabled = true;
+    disableElement(resetBtn);
     userInput.disabled = false;
     //reset user input field and also quote display
     userInput.value = "";
@@ -147,7 +147,7 @@ function reset() {
 
 function startOver() {
     clearInterval(interval);
-    resetBtn.disabled = true;
+    disableElement(resetBtn);
     userInput.disabled = false;
     timeBank = defaultTimerDuration;
     updateTimer(defaultTimerDuration);

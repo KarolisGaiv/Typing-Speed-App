@@ -19,3 +19,11 @@ export async function showQuote() {
 export function updateTimer(timeBank) {
     timer.innerText = timeBank;
 }
+
+export function toggleButtonStatus(button) {
+    button.disabled = !button.disabled;
+}
+
+export function disableElement(element) {
+    element.disabled = true;
+}
