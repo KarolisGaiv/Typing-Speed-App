@@ -1,6 +1,6 @@
 export async function getRandomQuote() {
     try {
-        const res = await fetch("https://api.quotable.io/quotes/random?minLength=400&maxLength=600");
+        const res = await fetch("https://api.quotable.io/quotes/random?minLength=600&maxLength=1000");
         if (!res.ok) {
             throw new Error(`Failed to fetch data ${res.status}`);
         }
