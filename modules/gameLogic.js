@@ -49,7 +49,10 @@ export function inputHandler(userInputValue, quote) {
     });
 
     if (correctAnswer) {
-        correctWordsCounter += quote.split(" ").length;
+        const wordCount = quote.join("").split(" ").length;
+        correctWordsCounter += wordCount
+        userInput.value = ""
+        uiManager.showQuote()
         correctnessState.fill(null);
     }
 }
